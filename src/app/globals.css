@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0f;
-  --foreground: #e8e8ed;
-  --muted: #6e6e80;
-  --border: rgba(255, 255, 255, 0.06);
-  --accent: #635bff;
-  --accent-muted: rgba(99, 91, 255, 0.15);
-  --surface: rgba(255, 255, 255, 0.03);
+  --background: #0c0a09;
+  --foreground: #e7e0d8;
+  --muted: #8a7e72;
+  --border: rgba(255, 245, 230, 0.07);
+  --accent: #c8a26a;
+  --accent-muted: rgba(200, 162, 106, 0.15);
+  --surface: rgba(255, 245, 230, 0.03);
 }
 
 @theme inline {
@@ -33,7 +33,7 @@ body {
 
 /* Selection */
 ::selection {
-  background: rgba(99, 91, 255, 0.3);
+  background: rgba(200, 162, 106, 0.3);
   color: #fff;
 }
 
@@ -45,11 +45,11 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 245, 230, 0.08);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 245, 230, 0.14);
 }
 
 /* Focus ring utility */

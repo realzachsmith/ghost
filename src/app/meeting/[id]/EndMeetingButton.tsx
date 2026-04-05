@@ -25,17 +25,17 @@ export default function EndMeetingButton({ meetingId }: { meetingId: string }) {
       <div
         className="rounded-md px-4 py-3.5 text-center"
         style={{
-          background: "rgba(46, 160, 67, 0.06)",
-          border: "1px solid rgba(46, 160, 67, 0.12)",
+          background: "rgba(90, 154, 106, 0.06)",
+          border: "1px solid rgba(90, 154, 106, 0.12)",
         }}
       >
-        <p className="text-sm" style={{ color: "#2ea043" }}>{result}</p>
+        <p className="text-sm" style={{ color: "#5a9a6a" }}>{result}</p>
         <button
           onClick={() => window.location.reload()}
           className="mt-2 text-xs transition-colors"
-          style={{ color: "#6e6e80" }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#8a8a9a")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "#6e6e80")}
+          style={{ color: "#8a7e72" }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#b0a090")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "#8a7e72")}
         >
           Refresh page
         </button>
@@ -50,20 +50,20 @@ export default function EndMeetingButton({ meetingId }: { meetingId: string }) {
         disabled={status === "loading"}
         className="text-sm font-medium px-5 py-2 rounded-md transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
         style={{
-          background: status === "loading" ? "#2a2a3a" : "#635bff",
-          color: "#fff",
+          background: status === "loading" ? "#2a2520" : "#c8a26a",
+          color: status === "loading" ? "#8a7e72" : "#0c0a09",
         }}
         onMouseEnter={(e) => {
-          if (status !== "loading") e.currentTarget.style.background = "#7a73ff";
+          if (status !== "loading") e.currentTarget.style.background = "#d4b07a";
         }}
         onMouseLeave={(e) => {
-          if (status !== "loading") e.currentTarget.style.background = "#635bff";
+          if (status !== "loading") e.currentTarget.style.background = "#c8a26a";
         }}
       >
         {status === "loading" ? "Generating debrief..." : "End Meeting & Send Debrief"}
       </button>
       {status === "error" && (
-        <p className="text-sm" style={{ color: "#f85149" }}>{result}</p>
+        <p className="text-sm" style={{ color: "#c87060" }}>{result}</p>
       )}
     </div>
   );
