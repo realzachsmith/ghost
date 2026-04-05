@@ -5,6 +5,7 @@ import {
   RelevantMoment,
   TranscriptUtterance,
 } from "./types";
+import { getAppUrl } from "./url";
 
 const client = new Anthropic();
 
@@ -137,7 +138,7 @@ Keep it under 150 words. Use simple HTML: <p> tags, <strong> for emphasis. No <h
 
 If no moments were relevant, say so cheerfully — "Nothing relevant to you came up. You made the right call skipping this one."
 
-The transcript is available at: ${process.env.NEXT_PUBLIC_APP_URL}/meeting/${meeting.id}
+The transcript is available at: ${getAppUrl()}/meeting/${meeting.id}
 
 Return ONLY the HTML body content, no wrapper tags.`,
       },

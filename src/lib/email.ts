@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { getAppUrl } from "./url";
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY);
@@ -10,7 +11,7 @@ export async function sendDebrief(
   debriefHtml: string,
   meetingId: string
 ): Promise<void> {
-  const transcriptUrl = `${process.env.NEXT_PUBLIC_APP_URL}/meeting/${meetingId}`;
+  const transcriptUrl = `${getAppUrl()}/meeting/${meetingId}`;
 
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #1a1a1a;">

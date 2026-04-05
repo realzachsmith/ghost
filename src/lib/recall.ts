@@ -1,3 +1,5 @@
+import { getAppUrl } from "./url";
+
 const RECALL_API_BASE = process.env.RECALL_API_REGION
   ? `https://${process.env.RECALL_API_REGION}.recall.ai/api/v1`
   : "https://eu-central-1.recall.ai/api/v1";
@@ -14,7 +16,7 @@ export async function createBot(
   meetingId: string,
   botName: string = "Ghost (attending for Zach)"
 ): Promise<string> {
-  const webhookUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/webhook/recall/transcript`;
+  const webhookUrl = `${getAppUrl()}/api/webhook/recall/transcript`;
 
   const res = await fetch(`${RECALL_API_BASE}/bot/`, {
     method: "POST",
