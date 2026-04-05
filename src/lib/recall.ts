@@ -24,12 +24,17 @@ export async function createBot(
     body: JSON.stringify({
       meeting_url: meetingUrl,
       bot_name: botName,
-      transcription_options: {
-        provider: "meeting_captions",
-      },
-      real_time_transcription: {
-        destination_url: webhookUrl,
-        partial_results: false,
+      recording_config: {
+        transcript: {
+          provider: { meeting_captions: {} },
+        },
+        realtime_endpoints: [
+          {
+            type: "webhook",
+            url: webhookUrl,
+            events: ["transcript.data"],
+          },
+        ],
       },
       metadata: {
         ghost_meeting_id: meetingId,
