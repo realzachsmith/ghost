@@ -1,4 +1,6 @@
-const RECALL_API_BASE = "https://us-west-2.recall.ai/api/v1";
+const RECALL_API_BASE = process.env.RECALL_API_REGION
+  ? `https://${process.env.RECALL_API_REGION}.recall.ai/api/v1`
+  : "https://eu-central-1.recall.ai/api/v1";
 
 function headers() {
   return {

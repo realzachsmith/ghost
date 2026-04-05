@@ -5,6 +5,7 @@ import {
   getRunningSummary,
 } from "@/lib/storage";
 import { notFound } from "next/navigation";
+import EndMeetingButton from "./EndMeetingButton";
 
 function formatTime(seconds: number): string {
   const mins = Math.floor(seconds / 60);
@@ -67,6 +68,11 @@ export default async function MeetingPage({
             </span>
           </div>
         </div>
+
+        {/* End Meeting Button */}
+        {meeting.status !== "done" && meeting.status !== "error" && (
+          <EndMeetingButton meetingId={id} />
+        )}
 
         {/* Summary */}
         {summary && (
