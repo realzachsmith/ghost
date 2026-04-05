@@ -15,7 +15,7 @@ export async function POST() {
     botId: "test-bot",
     meetingUrl: "https://meet.google.com/test",
     title: "Q1 Planning Sync",
-    userEmail: "zachary4088@gmail.com",
+    userEmail: "zach@north-digital.com",
     status: "recording",
     createdAt: new Date().toISOString(),
   };
