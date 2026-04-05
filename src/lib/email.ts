@@ -5,6 +5,27 @@ function getResend() {
   return new Resend(process.env.RESEND_API_KEY);
 }
 
+export async function sendConfirmation(
+  to: string,
+  meetingTitle: string
+): Promise<void> {
+  const html = `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #1a1a1a;">
+      <p style="font-size: 16px; line-height: 1.5;">
+        Got it — I'll attend <strong>${meetingTitle}</strong> for you and email you what matters. 👻
+      </p>
+      <p style="color: #999; font-size: 12px; margin-top: 16px;">Sent by Ghost 👻</p>
+    </div>
+  `;
+
+  await getResend().emails.send({
+    from: "Ghost <onboarding@resend.dev>",
+    to: [to],
+    subject: `👻 Ghost will attend: ${meetingTitle}`,
+    html,
+  });
+}
+
 export async function sendDebrief(
   to: string,
   meetingTitle: string,

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { nanoid } from "nanoid";
 import { createBot } from "@/lib/recall";
-import { saveMeeting } from "@/lib/storage";
+import { saveMeeting, getOrCreateProfile } from "@/lib/storage";
 import { DEMO_PROFILE } from "@/lib/profile";
 import { Meeting } from "@/lib/types";
 
@@ -30,12 +30,17 @@ export async function POST(req: NextRequest) {
 
     const meetingId = nanoid(10);
 
+    // Look up or create a profile for the user; fall back to demo profile
+    const profile = userEmail
+      ? await getOrCreateProfile(userEmail)
+      : DEMO_PROFILE;
+
     const meeting: Meeting = {
       id: meetingId,
       botId: "",
       meetingUrl,
       title: meetingTitle || "Meeting",
-      userEmail: userEmail || DEMO_PROFILE.email,
+      userEmail: profile.email,
       status: "joining",
       createdAt: new Date().toISOString(),
     };

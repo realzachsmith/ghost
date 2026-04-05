@@ -1,9 +1,11 @@
 import { Redis } from "@upstash/redis";
 import {
+  GhostProfile,
   Meeting,
   RelevantMoment,
   TranscriptUtterance,
 } from "./types";
+import { DEMO_PROFILE } from "./profile";
 
 function getRedis() {
   return new Redis({
@@ -96,4 +98,41 @@ export async function getRunningSummary(
   meetingId: string
 ): Promise<string> {
   return (await getRedis().get<string>(`meeting:${meetingId}:summary`)) || "";
+}
+
+// --- Ghost Profile CRUD ---
+
+export async function saveProfile(
+  email: string,
+  profile: GhostProfile
+): Promise<void> {
+  await getRedis().set(`profile:${email}`, JSON.stringify(profile), {
+    ex: TTL,
+  });
+}
+
+export async function getProfile(
+  email: string
+): Promise<GhostProfile | null> {
+  const data = await getRedis().get<string>(`profile:${email}`);
+  if (!data) return null;
+  return typeof data === "string" ? JSON.parse(data) : data;
+}
+
+export async function getOrCreateProfile(
+  email: string,
+  name?: string
+): Promise<GhostProfile> {
+  const existing = await getProfile(email);
+  if (existing) return existing;
+
+  const profile: GhostProfile = {
+    name: name || email.split("@")[0],
+    email,
+    context: "",
+    pastMeetings: 0,
+  };
+
+  await saveProfile(email, profile);
+  return profile;
 }
