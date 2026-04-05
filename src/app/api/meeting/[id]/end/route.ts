@@ -22,7 +22,16 @@ export async function POST(
   }
 
   if (meeting.status === "done") {
-    return NextResponse.json({ error: "Meeting already processed" }, { status: 400 });
+    const [moments, transcript] = await Promise.all([
+      getRelevantMoments(id),
+      getTranscript(id),
+    ]);
+    return NextResponse.json({
+      status: "done",
+      momentsCount: moments.length,
+      transcriptCount: transcript.length,
+      message: "Debrief was already sent",
+    });
   }
 
   await updateMeetingStatus(id, "processing");
