@@ -16,7 +16,9 @@ export async function createBot(
   meetingId: string,
   botName: string = "Ghost (attending for Zach)"
 ): Promise<string> {
-  const webhookUrl = `${getAppUrl()}/api/webhook/recall/transcript`;
+  const appUrl = getAppUrl();
+  const transcriptWebhookUrl = `${appUrl}/api/webhook/recall/transcript`;
+  const statusWebhookUrl = `${appUrl}/api/webhook/recall/status`;
 
   const res = await fetch(`${RECALL_API_BASE}/bot/`, {
     method: "POST",
@@ -24,6 +26,7 @@ export async function createBot(
     body: JSON.stringify({
       meeting_url: meetingUrl,
       bot_name: botName,
+      status_callback_url: statusWebhookUrl,
       recording_config: {
         transcript: {
           provider: { meeting_captions: {} },
@@ -31,7 +34,7 @@ export async function createBot(
         realtime_endpoints: [
           {
             type: "webhook",
-            url: webhookUrl,
+            url: transcriptWebhookUrl,
             events: ["transcript.data"],
           },
         ],
