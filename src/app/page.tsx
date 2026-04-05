@@ -42,61 +42,92 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4 relative overflow-hidden">
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-indigo-950/20 via-black to-black pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"
+      style={{ background: "#0a0a0f" }}
+    >
+      {/* Stripe-style mesh gradient background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(99, 91, 255, 0.08) 0%, transparent 60%), " +
+            "radial-gradient(ellipse 60% 40% at 30% 10%, rgba(120, 80, 220, 0.05) 0%, transparent 50%), " +
+            "radial-gradient(ellipse 50% 50% at 70% 5%, rgba(60, 100, 255, 0.04) 0%, transparent 50%)",
+        }}
+      />
 
-      <div className="w-full max-w-md space-y-10 relative z-10">
+      <div className="w-full max-w-lg relative z-10">
         {/* Branding */}
-        <div className="text-center space-y-3 animate-[fadeIn_0.6s_ease-out]">
-          <div className="text-6xl mb-2">&#x1F47B;</div>
-          <h1 className="text-5xl font-bold tracking-tight bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
+        <div className="text-center mb-14">
+          <p className="text-[#6e6e80] text-sm tracking-wide mb-4 font-medium">
+            YOUR AI MEETING PROXY
+          </p>
+          <h1
+            className="text-7xl text-white mb-5 leading-none"
+            style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+          >
             Ghost
           </h1>
-          <p className="text-zinc-400 text-lg font-light">
-            Your AI meeting proxy. Forward and forget.
+          <p className="text-[#8a8a9a] text-lg leading-relaxed max-w-sm mx-auto">
+            Forward a meeting you can&apos;t attend.<br />
+            Get debriefed on what mattered.
           </p>
         </div>
 
         {/* Form / Success state */}
-        <div className="animate-[fadeIn_0.8s_ease-out]">
+        <div>
           {status === "success" && meetingId ? (
-            <div className="bg-zinc-900/80 backdrop-blur-sm border border-zinc-800 rounded-2xl p-8 space-y-5 text-center">
-              <div className="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-8 h-8 text-green-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
+            <div className="text-center space-y-8">
+              {/* Success check */}
+              <div className="flex justify-center">
+                <div className="w-14 h-14 rounded-full flex items-center justify-center"
+                  style={{ background: "rgba(46, 160, 67, 0.1)" }}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 12.75l6 6 9-13.5"
-                  />
-                </svg>
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="#2ea043"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.5 12.75l6 6 9-13.5"
+                    />
+                  </svg>
+                </div>
               </div>
+
               <div className="space-y-2">
-                <h2 className="text-xl font-semibold text-white">
+                <h2
+                  className="text-2xl text-white"
+                  style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                >
                   Ghost is on it
                 </h2>
-                <p className="text-zinc-400 text-sm leading-relaxed">
-                  Your Ghost is joining the meeting now. You&apos;ll get an
-                  email debrief when it&apos;s over.
+                <p className="text-[#6e6e80] text-sm leading-relaxed">
+                  Your proxy is joining the meeting now.<br />
+                  You&apos;ll receive an email debrief when it&apos;s over.
                 </p>
               </div>
+
               <a
                 href={`/meeting/${meetingId}`}
-                className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-2.5 rounded-lg transition-colors text-sm"
+                className="inline-flex items-center gap-2 text-sm font-medium px-6 py-2.5 rounded-md transition-colors"
+                style={{
+                  background: "#635bff",
+                  color: "#fff",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#7a73ff")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#635bff")}
               >
-                View meeting dashboard
+                View meeting
                 <svg
-                  className="w-4 h-4"
+                  className="w-3.5 h-3.5"
                   fill="none"
                   viewBox="0 0 24 24"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
                   stroke="currentColor"
                 >
                   <path
@@ -106,70 +137,118 @@ export default function Home() {
                   />
                 </svg>
               </a>
-              <button
-                onClick={() => {
-                  setStatus("idle");
-                  setMeetingId(null);
-                  setMeetingUrl("");
-                }}
-                className="block w-full mt-2 text-zinc-500 hover:text-zinc-300 text-sm transition-colors"
-              >
-                Send another Ghost
-              </button>
+
+              <div>
+                <button
+                  onClick={() => {
+                    setStatus("idle");
+                    setMeetingId(null);
+                    setMeetingUrl("");
+                  }}
+                  className="text-[#6e6e80] hover:text-[#8a8a9a] text-sm transition-colors"
+                >
+                  Send another Ghost
+                </button>
+              </div>
             </div>
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="bg-zinc-900/80 backdrop-blur-sm border border-zinc-800 rounded-2xl p-6 space-y-5"
+              className="space-y-6"
             >
-              <div>
-                <label
-                  htmlFor="meetingUrl"
-                  className="block text-sm font-medium text-zinc-300 mb-1.5"
-                >
-                  Meeting link
-                </label>
-                <input
-                  id="meetingUrl"
-                  type="url"
-                  required
-                  placeholder="https://meet.google.com/abc-defg-hij"
-                  value={meetingUrl}
-                  onChange={(e) => setMeetingUrl(e.target.value)}
-                  className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
-                />
-              </div>
+              <div className="space-y-5 rounded-lg p-6"
+                style={{
+                  background: "rgba(255, 255, 255, 0.02)",
+                  border: "1px solid rgba(255, 255, 255, 0.06)",
+                }}
+              >
+                <div>
+                  <label
+                    htmlFor="meetingUrl"
+                    className="block text-sm text-[#8a8a9a] mb-2"
+                  >
+                    Meeting link
+                  </label>
+                  <input
+                    id="meetingUrl"
+                    type="url"
+                    required
+                    placeholder="https://meet.google.com/abc-defg-hij"
+                    value={meetingUrl}
+                    onChange={(e) => setMeetingUrl(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-md text-white text-sm placeholder:text-[#3a3a4a] transition-all"
+                    style={{
+                      background: "rgba(255, 255, 255, 0.04)",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = "rgba(99, 91, 255, 0.5)";
+                      e.currentTarget.style.boxShadow = "0 0 0 3px rgba(99, 91, 255, 0.1)";
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.08)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  />
+                </div>
 
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-zinc-300 mb-1.5"
-                >
-                  Your email{" "}
-                  <span className="text-zinc-600 font-normal">
-                    (for the debrief)
-                  </span>
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="defaults to demo account"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
-                />
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm text-[#8a8a9a] mb-2"
+                  >
+                    Your email{" "}
+                    <span className="text-[#4a4a5a]">
+                      (for the debrief)
+                    </span>
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="defaults to demo account"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-md text-white text-sm placeholder:text-[#3a3a4a] transition-all"
+                    style={{
+                      background: "rgba(255, 255, 255, 0.04)",
+                      border: "1px solid rgba(255, 255, 255, 0.08)",
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = "rgba(99, 91, 255, 0.5)";
+                      e.currentTarget.style.boxShadow = "0 0 0 3px rgba(99, 91, 255, 0.1)";
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.08)";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
+                  />
+                </div>
               </div>
 
               {status === "error" && (
-                <div className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3">
-                  <p className="text-red-400 text-sm">{errorMsg}</p>
+                <div className="px-4 py-3 rounded-md"
+                  style={{
+                    background: "rgba(248, 81, 73, 0.08)",
+                    border: "1px solid rgba(248, 81, 73, 0.15)",
+                  }}
+                >
+                  <p className="text-[#f85149] text-sm">{errorMsg}</p>
                 </div>
               )}
 
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-zinc-800 disabled:text-zinc-600 text-white font-semibold py-3.5 rounded-xl transition-all active:scale-[0.98] cursor-pointer disabled:cursor-not-allowed"
+                className="w-full text-white text-sm font-medium py-3 rounded-md transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+                style={{
+                  background: status === "loading" ? "#3a3a4a" : "#635bff",
+                }}
+                onMouseEnter={(e) => {
+                  if (status !== "loading") e.currentTarget.style.background = "#7a73ff";
+                }}
+                onMouseLeave={(e) => {
+                  if (status !== "loading") e.currentTarget.style.background = "#635bff";
+                }}
               >
                 {status === "loading" ? (
                   <span className="inline-flex items-center gap-2">
@@ -203,41 +282,50 @@ export default function Home() {
         </div>
 
         {/* How it works */}
-        <div className="space-y-5 animate-[fadeIn_1s_ease-out]">
-          <h2 className="text-center text-xs font-semibold uppercase tracking-widest text-zinc-600">
-            How it works
-          </h2>
-          <div className="grid grid-cols-3 gap-3">
+        <div className="mt-20">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.06)" }} />
+            <h2 className="text-xs font-medium tracking-widest text-[#4a4a5a] uppercase">
+              How it works
+            </h2>
+            <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.06)" }} />
+          </div>
+
+          <div className="grid grid-cols-3 gap-0">
             {[
               {
-                step: "1",
-                icon: "&#x1F4E8;",
+                step: "01",
                 title: "Forward",
-                desc: "Paste the meeting link",
+                desc: "Paste your meeting link",
               },
               {
-                step: "2",
-                icon: "&#x1F47B;",
-                title: "Ghost Attends",
+                step: "02",
+                title: "Ghost attends",
                 desc: "AI joins and listens",
               },
               {
-                step: "3",
-                icon: "&#x1F4EC;",
-                title: "Get Debriefed",
+                step: "03",
+                title: "Get debriefed",
                 desc: "Email with what mattered",
               },
-            ].map((item) => (
+            ].map((item, i) => (
               <div
                 key={item.step}
-                className="bg-zinc-900/50 border border-zinc-800/50 rounded-xl p-4 text-center space-y-2"
+                className="text-center px-4"
+                style={{
+                  borderRight: i < 2 ? "1px solid rgba(255,255,255,0.06)" : "none",
+                }}
               >
-                <div
-                  className="text-2xl"
-                  dangerouslySetInnerHTML={{ __html: item.icon }}
-                />
-                <p className="text-white text-sm font-medium">{item.title}</p>
-                <p className="text-zinc-500 text-xs leading-relaxed">
+                <p className="text-[#635bff] text-xs font-mono mb-2 tracking-wide">
+                  {item.step}
+                </p>
+                <p
+                  className="text-white text-base mb-1"
+                  style={{ fontFamily: "var(--font-instrument-serif), Georgia, serif" }}
+                >
+                  {item.title}
+                </p>
+                <p className="text-[#6e6e80] text-xs leading-relaxed">
                   {item.desc}
                 </p>
               </div>
@@ -246,8 +334,8 @@ export default function Home() {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-zinc-700 text-xs pb-4">
-          Built at Ramp Hackathon 2025
+        <p className="text-center text-[#2a2a3a] text-xs mt-16 pb-4">
+          Built at Ramp Hackathon 2026
         </p>
       </div>
     </div>

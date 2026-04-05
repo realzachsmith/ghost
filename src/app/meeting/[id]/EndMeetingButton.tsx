@@ -13,7 +13,7 @@ export default function EndMeetingButton({ meetingId }: { meetingId: string }) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
       setStatus("done");
-      setResult(`Debrief sent! ${data.momentsCount} relevant moments from ${data.transcriptCount} segments.`);
+      setResult(`Debrief sent. ${data.momentsCount} relevant moments from ${data.transcriptCount} segments.`);
     } catch (err) {
       setStatus("error");
       setResult(err instanceof Error ? err.message : "Failed");
@@ -22,11 +22,20 @@ export default function EndMeetingButton({ meetingId }: { meetingId: string }) {
 
   if (status === "done") {
     return (
-      <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 text-center">
-        <p className="text-green-400 text-sm">{result}</p>
+      <div
+        className="rounded-md px-4 py-3.5 text-center"
+        style={{
+          background: "rgba(46, 160, 67, 0.06)",
+          border: "1px solid rgba(46, 160, 67, 0.12)",
+        }}
+      >
+        <p className="text-sm" style={{ color: "#2ea043" }}>{result}</p>
         <button
           onClick={() => window.location.reload()}
-          className="mt-2 text-zinc-400 hover:text-zinc-200 text-xs underline"
+          className="mt-2 text-xs transition-colors"
+          style={{ color: "#6e6e80" }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#8a8a9a")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "#6e6e80")}
         >
           Refresh page
         </button>
@@ -35,16 +44,26 @@ export default function EndMeetingButton({ meetingId }: { meetingId: string }) {
   }
 
   return (
-    <div className="flex gap-3">
+    <div className="flex items-center gap-3">
       <button
         onClick={handleEnd}
         disabled={status === "loading"}
-        className="bg-indigo-600 hover:bg-indigo-500 disabled:bg-zinc-700 disabled:text-zinc-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+        className="text-sm font-medium px-5 py-2 rounded-md transition-all cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+        style={{
+          background: status === "loading" ? "#2a2a3a" : "#635bff",
+          color: "#fff",
+        }}
+        onMouseEnter={(e) => {
+          if (status !== "loading") e.currentTarget.style.background = "#7a73ff";
+        }}
+        onMouseLeave={(e) => {
+          if (status !== "loading") e.currentTarget.style.background = "#635bff";
+        }}
       >
         {status === "loading" ? "Generating debrief..." : "End Meeting & Send Debrief"}
       </button>
       {status === "error" && (
-        <p className="text-red-400 text-sm self-center">{result}</p>
+        <p className="text-sm" style={{ color: "#f85149" }}>{result}</p>
       )}
     </div>
   );
