@@ -36,30 +36,30 @@ export default async function MeetingPage({
     { color: string; dotColor: string; label: string; pulse?: boolean }
   > = {
     joining: {
-      color: "#c8a26a",
-      dotColor: "#c8a26a",
+      color: "#9a7b4f",
+      dotColor: "#9a7b4f",
       label: "Joining",
     },
     recording: {
-      color: "#c87060",
-      dotColor: "#c87060",
+      color: "#b44632",
+      dotColor: "#b44632",
       label: "Recording",
       pulse: true,
     },
     processing: {
-      color: "#6a9ab0",
-      dotColor: "#6a9ab0",
+      color: "#4a7a8a",
+      dotColor: "#4a7a8a",
       label: "Processing",
       pulse: true,
     },
     done: {
-      color: "#5a9a6a",
-      dotColor: "#5a9a6a",
+      color: "#4b8c50",
+      dotColor: "#4b8c50",
       label: "Complete",
     },
     error: {
-      color: "#c87060",
-      dotColor: "#c87060",
+      color: "#b44632",
+      dotColor: "#b44632",
       label: "Error",
     },
   };
@@ -75,24 +75,15 @@ export default async function MeetingPage({
   return (
     <div
       className="min-h-screen"
-      style={{ background: "#0c0a09", color: "#e7e0d8" }}
+      style={{ background: "#faf8f5", color: "#2a2520" }}
     >
-      {/* Subtle top gradient */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 30% at 50% 0%, rgba(200, 162, 106, 0.04) 0%, transparent 60%)",
-        }}
-      />
-
       <div className="max-w-2xl mx-auto px-6 py-12 space-y-10 relative">
         {/* Header */}
         <div className="space-y-6">
           <a
             href="/"
-            className="inline-flex items-center gap-1.5 text-sm transition-colors hover:text-[#b0a090]"
-            style={{ color: "#8a7e72" }}
+            className="inline-flex items-center gap-1.5 text-sm transition-colors hover:text-[#4a4038]"
+            style={{ color: "#9a8e80" }}
           >
             <svg
               className="w-3.5 h-3.5"
@@ -116,12 +107,12 @@ export default async function MeetingPage({
                 className="text-3xl leading-tight"
                 style={{
                   fontFamily: "var(--font-instrument-serif), Georgia, serif",
-                  color: "#f5efe6",
+                  color: "#2a2520",
                 }}
               >
                 {meeting.title}
               </h1>
-              <p className="text-sm" style={{ color: "#8a7e72" }}>
+              <p className="text-sm" style={{ color: "#9a8e80" }}>
                 {new Date(meeting.createdAt).toLocaleDateString("en-US", {
                   weekday: "long",
                   month: "long",
@@ -140,7 +131,7 @@ export default async function MeetingPage({
               className="inline-flex items-center gap-2 text-xs font-medium whitespace-nowrap px-3 py-1.5 rounded-full"
               style={{
                 color: statusInfo.color,
-                background: `${statusInfo.color}10`,
+                background: `${statusInfo.color}0d`,
               }}
             >
               <span
@@ -162,13 +153,13 @@ export default async function MeetingPage({
           <div className="space-y-3">
             <h2
               className="text-xs font-medium tracking-[0.2em] uppercase"
-              style={{ color: "#5a5448" }}
+              style={{ color: "#b0a898" }}
             >
               Summary
             </h2>
             <p
               className="text-sm leading-[1.8]"
-              style={{ color: "#b0a898" }}
+              style={{ color: "#5a5248" }}
             >
               {summary}
             </p>
@@ -177,7 +168,7 @@ export default async function MeetingPage({
 
         {/* Separator */}
         {summary && (moments.length > 0 || transcript.length > 0) && (
-          <div style={{ height: 1, background: "rgba(255, 245, 230, 0.06)" }} />
+          <div style={{ height: 1, background: "rgba(42, 37, 32, 0.08)" }} />
         )}
 
         {/* Relevant Moments */}
@@ -186,15 +177,15 @@ export default async function MeetingPage({
             <div className="flex items-center gap-3">
               <h2
                 className="text-xs font-medium tracking-[0.2em] uppercase"
-                style={{ color: "#5a5448" }}
+                style={{ color: "#b0a898" }}
               >
                 Key Moments
               </h2>
               <span
                 className="text-xs font-mono px-2 py-0.5 rounded"
                 style={{
-                  color: "#c8a26a",
-                  background: "rgba(200, 162, 106, 0.1)",
+                  color: "#9a7b4f",
+                  background: "rgba(154, 123, 79, 0.08)",
                 }}
               >
                 {moments.length}
@@ -207,31 +198,31 @@ export default async function MeetingPage({
                   key={i}
                   className="py-5"
                   style={{
-                    borderLeft: "2px solid rgba(200, 162, 106, 0.3)",
+                    borderLeft: "2px solid rgba(154, 123, 79, 0.3)",
                     paddingLeft: "20px",
                     borderBottom:
                       i < moments.length - 1
-                        ? "1px solid rgba(255, 245, 230, 0.04)"
+                        ? "1px solid rgba(42, 37, 32, 0.06)"
                         : "none",
                   }}
                 >
                   <div className="flex items-center gap-3 mb-2">
                     <span
                       className="text-xs font-medium uppercase tracking-wide"
-                      style={{ color: "#c8a26a" }}
+                      style={{ color: "#9a7b4f" }}
                     >
                       {moment.type.replace("_", " ")}
                     </span>
                     <span
                       className="text-xs font-mono"
-                      style={{ color: "#5a5448" }}
+                      style={{ color: "#b0a898" }}
                     >
                       {formatTime(moment.timestamp)}
                     </span>
                   </div>
                   <p
                     className="text-sm leading-relaxed mb-1.5"
-                    style={{ color: "#e7e0d8" }}
+                    style={{ color: "#2a2520" }}
                   >
                     {moment.summary}
                   </p>
@@ -241,7 +232,7 @@ export default async function MeetingPage({
                   >
                     {moment.why}
                   </p>
-                  <p className="text-xs" style={{ color: "#5a5448" }}>
+                  <p className="text-xs" style={{ color: "#b0a898" }}>
                     &mdash; {moment.speaker}
                   </p>
                 </div>
@@ -252,7 +243,7 @@ export default async function MeetingPage({
 
         {/* Separator */}
         {moments.length > 0 && transcript.length > 0 && (
-          <div style={{ height: 1, background: "rgba(255, 245, 230, 0.06)" }} />
+          <div style={{ height: 1, background: "rgba(42, 37, 32, 0.08)" }} />
         )}
 
         {/* Full Transcript */}
@@ -261,13 +252,13 @@ export default async function MeetingPage({
             <div className="flex items-center gap-3">
               <h2
                 className="text-xs font-medium tracking-[0.2em] uppercase"
-                style={{ color: "#5a5448" }}
+                style={{ color: "#b0a898" }}
               >
                 Transcript
               </h2>
               <span
                 className="text-xs font-mono"
-                style={{ color: "#3a3530" }}
+                style={{ color: "#c8c0b8" }}
               >
                 {transcript.length} segments
               </span>
@@ -282,29 +273,29 @@ export default async function MeetingPage({
                     className="py-3.5"
                     style={{
                       borderLeft: isRelevant
-                        ? "2px solid rgba(200, 162, 106, 0.4)"
+                        ? "2px solid rgba(154, 123, 79, 0.4)"
                         : "2px solid transparent",
                       paddingLeft: "16px",
-                      borderBottom: "1px solid rgba(255, 245, 230, 0.03)",
+                      borderBottom: "1px solid rgba(42, 37, 32, 0.04)",
                     }}
                   >
                     <div className="flex items-center gap-2.5 mb-1">
                       <span
                         className="text-xs font-medium"
-                        style={{ color: isRelevant ? "#c8a26a" : "#8a7e72" }}
+                        style={{ color: isRelevant ? "#9a7b4f" : "#8a7e72" }}
                       >
                         {utterance.speaker}
                       </span>
                       <span
                         className="text-xs font-mono"
-                        style={{ color: "#3a3530" }}
+                        style={{ color: "#c8c0b8" }}
                       >
                         {formatTime(utterance.startTime)}
                       </span>
                     </div>
                     <p
                       className="text-sm leading-[1.75]"
-                      style={{ color: isRelevant ? "#d8d0c8" : "#8a7e72" }}
+                      style={{ color: isRelevant ? "#2a2520" : "#8a7e72" }}
                     >
                       {utterance.text}
                     </p>
@@ -322,12 +313,12 @@ export default async function MeetingPage({
               className="text-3xl"
               style={{
                 fontFamily: "var(--font-instrument-serif), Georgia, serif",
-                color: "#2a2520",
+                color: "#d8d0c8",
               }}
             >
               Listening...
             </p>
-            <p className="text-sm" style={{ color: "#5a5448" }}>
+            <p className="text-sm" style={{ color: "#b0a898" }}>
               {meeting.status === "joining"
                 ? "Ghost is joining the meeting"
                 : meeting.status === "recording"
@@ -338,7 +329,7 @@ export default async function MeetingPage({
               <a
                 href={`/meeting/${id}`}
                 className="inline-block text-sm transition-colors"
-                style={{ color: "#c8a26a" }}
+                style={{ color: "#9a7b4f" }}
               >
                 Refresh now
               </a>
